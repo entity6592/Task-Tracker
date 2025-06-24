@@ -49,8 +49,8 @@ def list_tasks(status=""):
         return f"No tasks saved - Type 'python3 main.py add [taskname]' to get started!"    
 
     tasklist = ""
-    for dict in filtered_tasks:
-        tasklist += f"ID: {dict["id"]} | {dict["description"]} | Status: {dict["status"]} | Last modified: {dict["updatedAt"]}\n"
+    for item in filtered_tasks:
+        tasklist += f"ID: {item['id']} | {item['description']} | Status: {item['status']} | Last modified: {item['updatedAt']}\n"
     return tasklist
 
 def main():
@@ -69,10 +69,8 @@ def main():
         print(result)
 
     if command == "list":
-        if len(sys.argv) < 2:
-            print("Syntax: python3 main.py list [optional status filter]")
-            return
-        if sys.argv[2]:
+
+        if len(sys.argv) > 2:
             result = list_tasks(status=sys.argv[2])
         else:
             result = list_tasks()
