@@ -35,6 +35,15 @@ def add_tasks(description, status="todo"):
     save_tasks(tasks)
     return f"Task added successfully (ID: {new_task['id']})"
 
+def delete_tasks(id):
+    tasks = load_tasks()
+    for item in tasks:
+        if item["id"] == id:
+            tasks.remove(item)
+            save_tasks(tasks)
+            return f"Task ID {id} successfully deleted"
+    return f"Task with ID {id} not found"
+
 def list_tasks(status=""):
     tasks = load_tasks()
 
@@ -74,6 +83,19 @@ def main():
             result = list_tasks(status=sys.argv[2])
         else:
             result = list_tasks()
+        print(result)
+
+    if command == "delete":
+
+        if len(sys.argv) != 3:
+            print("Syntax: python3 main.py delete 'task ID'")
+            return
+        try:
+            id = int(sys.argv[2])
+        except ValueError:
+            print("Error: task ID must be an integer")
+            return
+        result = delete_tasks(id)
         print(result)
 
 
