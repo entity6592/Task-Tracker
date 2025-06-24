@@ -44,6 +44,17 @@ def delete_tasks(id):
             return f"Task ID {id} successfully deleted"
     return f"Task with ID {id} not found"
 
+def update_tasks(id, new_description):
+    tasks = load_tasks()
+    for item in tasks:
+        if item["id"] == id:
+            item["description"] = new_description
+            item["updatedAt"] = str(datetime.now(ZoneInfo("Europe/London")))
+            save_tasks(tasks)
+            return f"Task ID {id} updated --> {new_description}"
+    return f"Task with ID {id} not found"
+
+
 def list_tasks(status=""):
     tasks = load_tasks()
 
@@ -72,7 +83,7 @@ def main():
 
     if command == "add":
         if len(sys.argv) < 3:
-            print("Syntax: python3 main.py add 'task description'")
+            print("Syntax: python3 main.py add [task description]")
             return
         result = add_tasks(sys.argv[2])
         print(result)
@@ -88,7 +99,7 @@ def main():
     if command == "delete":
 
         if len(sys.argv) != 3:
-            print("Syntax: python3 main.py delete 'task ID'")
+            print("Syntax: python3 main.py delete [task ID]")
             return
         try:
             id = int(sys.argv[2])
@@ -96,6 +107,19 @@ def main():
             print("Error: task ID must be an integer")
             return
         result = delete_tasks(id)
+        print(result)
+
+    if command == "update":
+        
+        if len(sys.argv) != 4:
+            print("Syntax: python3 main.py update [task ID] <new task description>")
+            return
+        try:
+            id = int(sys.argv[2])
+        except ValueError:
+            print("Error: task ID must be an integer")
+            return
+        result = update_tasks(id, sys.argv[3])
         print(result)
 
 
