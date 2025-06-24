@@ -54,6 +54,16 @@ def update_tasks(id, new_description):
             return f"Task ID {id} updated --> {new_description}"
     return f"Task with ID {id} not found"
 
+def change_status(id, new_status):
+    tasks = load_tasks()
+    for item in tasks:
+        if item["id"] == id:
+            item["status"] = new_status
+            item["updatedAt"] = str(datetime.now(ZoneInfo("Europe/London")))
+            save_tasks(tasks)
+            return f"Task ID {id} now set to {new_status}"
+    return f"Task with ID {id} not found"
+
 
 def list_tasks(status=""):
     tasks = load_tasks()
@@ -120,6 +130,24 @@ def main():
             print("Error: task ID must be an integer")
             return
         result = update_tasks(id, sys.argv[3])
+        print(result)
+
+    if command == "mark":
+
+        if len(sys.argv) != 4:
+            print("Syntax: python3 main.py mark [task ID] <status>")
+            return
+        
+        try:
+            id = int(sys.argv[2])
+        except ValueError:
+            print("Error: task ID must be an integer")
+            return
+        
+        if sys.argv[3] not in ["todo", "in-progress", "done"]:
+            print("Invalid status: choose from todo, in-progress or done")
+            return
+        result = change_status(id, sys.argv[3])
         print(result)
 
 
