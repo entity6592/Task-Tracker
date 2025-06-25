@@ -1,16 +1,9 @@
 [
   {
     "id": 1,
-    "description": "new desc",
-    "createdAt": "2025-06-24 16:29:16.843416+01:00",
-    "updatedAt": "2025-06-24 16:29:44.949524+01:00",
-    "status": "todo"
-  },
-  {
-    "id": 2,
-    "description": "test",
-    "createdAt": "2025-06-24 16:29:22.362281+01:00",
-    "updatedAt": "2025-06-24 16:29:22.362405+01:00",
-    "status": "todo"
+    "description": "Help me deal with my parents",
+    "createdAt": "2025-06-24 18:23:33.483230+01:00",
+    "updatedAt": "2025-06-24 18:23:51.016109+01:00",
+    "status": "in-progress"
   }
 ]
